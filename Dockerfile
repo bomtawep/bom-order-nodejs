@@ -1,8 +1,9 @@
-FROM node:12-buster-slim
+FROM node:16
 
 WORKDIR /src
-COPY package.json ./
-RUN npm install
+COPY package*.json ./
+RUN yarn install
 COPY . .
+EXPOSE 8080
 
-CMD ["npm", "start"]
+CMD ["node", "index.js"]
