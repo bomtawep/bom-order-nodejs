@@ -1,0 +1,30 @@
+version: '3'
+services:
+  redis:
+    image: redis:5-alpine
+    expose:
+      - 6379
+  app:
+    build: .
+    volumes:
+      - .:/src/
+      - dependencies:/src/node_modules
+    working_dir: /src
+    depends_on:
+      - redis
+    environment:
+      NODE_ENV: development
+    ports:
+      - 3000:3000
+    command: npm run dev
+  install:
+    image: node-server_app:latest
+    depends_on:
+      - app
+    volumes:
+      - .:/src
+      - dependencies:/src/node_modules
+    working_dir: /src
+    command: bash -c "npm i && touch index.js"
+volumes:
+  dependencies:
