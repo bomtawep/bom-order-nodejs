@@ -10,7 +10,7 @@ CREATE TABLE public.accounts
     Password text,
     CONSTRAINT accounts_pkey PRIMARY KEY (id)
 );`;
-const insertTableStr = `insert into accounts(username, password) values ('bomtawep', 'B@13o01m22');`;
+const insertTableStr = `insert into public.accounts(username, password) values ('asd', 'B@13o01m22');`;
 const selectTableStr = `
   select * from accounts `;
 
@@ -59,8 +59,8 @@ const pool = new Pool({
 });
 
 app.get("/list", (req: Request, res: Response, next: NextFunction) => {
-  res.send("All role and Account");
-  listTable(`select * from accounts;`);
+  const title = 'All role and Account'
+  listTable(selectTableStr, res, title);
 });
 
 
@@ -89,16 +89,19 @@ const insertTable = async (insert: any) => {
     console.log(err);
   }
 }
-const listTable = async (listStr: any) => {
+const listTable = async (listStr: any, resp: any, titleMsg: String) => {
   try {
     pool.query(listStr, (err, res) => {
       if (err) {
           console.error(err);
           return;
       }
+      const listResp: any[] = [];
       for (let row of res.rows) {
-          console.log(row);
+        listResp.push(row);
       }
+      console.log(listResp);
+      resp.send(listResp);
     });
   } catch (err) {
     console.log(err);

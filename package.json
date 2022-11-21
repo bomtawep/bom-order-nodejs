@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node ./dist/index.js",
-    "dev": "nodemon -L -e ts --exec \"npm run build && npm start\"",
-    "build": "tsc"
+    "start-server": "node ./dist/index.js",
+    "dev": "nodemon -L -e ts --exec \"npm run build && npm run start-server\"",
+    "build": "tsc",
+    "start": "docker-compose up",
+    "stop": "docker-compose down"
   },
   "repository": "https://github.com/bomtawep/bom-order-nodejs.git",
   "author": "bomtawep <bomtawep@gmail.com>",
