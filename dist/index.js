@@ -23,7 +23,7 @@ CREATE TABLE public.accounts
     Password text,
     CONSTRAINT accounts_pkey PRIMARY KEY (id)
 );`;
-const insertTableStr = `insert into accounts(username, password) values ('bomtawep', 'B@13o01m22');`;
+const insertTableStr = `insert into public.accounts(username, password) values ('asd', 'B@13o01m22');`;
 const selectTableStr = `
   select * from accounts `;
 const app = (0, express_1.default)();
@@ -65,8 +65,8 @@ const pool = new pg_1.Pool({
     port: parseInt(process.env.DB_PORT || "5432")
 });
 app.get("/list", (req, res, next) => {
-    res.send("All role and Account");
-    listTable(`select * from accounts;`);
+    const title = 'All role and Account';
+    listTable(selectTableStr, res, title);
 });
 const createTable = (create) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -95,16 +95,19 @@ const insertTable = (insert) => __awaiter(void 0, void 0, void 0, function* () {
         console.log(err);
     }
 });
-const listTable = (listStr) => __awaiter(void 0, void 0, void 0, function* () {
+const listTable = (listStr, resp, titleMsg) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         pool.query(listStr, (err, res) => {
             if (err) {
                 console.error(err);
                 return;
             }
+            const listResp = [];
             for (let row of res.rows) {
-                console.log(row);
+                listResp.push(row);
             }
+            console.log(listResp);
+            resp.send(listResp);
         });
     }
     catch (err) {
