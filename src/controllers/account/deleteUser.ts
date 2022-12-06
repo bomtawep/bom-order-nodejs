@@ -1,4 +1,4 @@
-import conPool = require('../database')
+import conPool = require('../../database')
 
 const deleteUserPool = (request: any, response: any) => {
     const { id } = request.body
