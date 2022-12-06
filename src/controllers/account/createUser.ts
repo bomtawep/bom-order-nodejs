@@ -1,4 +1,4 @@
-import conPool = require('../database')
+import conPool = require('../../database')
 
 const createUserPool = (request: any, response: any) => {
     const { username, password } = request.body

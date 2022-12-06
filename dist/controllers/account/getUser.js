@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const conPool = require("../database");
+const conPool = require("../../database");
 const getUserPool = (request, response) => {
     const { id } = request.params;
     if (id == null || id == "") {
