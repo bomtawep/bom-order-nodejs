@@ -23,9 +23,15 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 const express = __importStar(require("express"));
-const adminRouter = require('./account-routes');
+const accRouter = require('./account-routes');
+const orderRouter = require('./order-routes');
+const pointRouter = require('./point-routes');
+const productTypeRouter = require('./product-type-routes');
 const routeAcc = express.Router();
 module.exports = (() => {
-    routeAcc.use('/acc', adminRouter);
+    routeAcc.use('/acc', accRouter);
+    routeAcc.use('/order', orderRouter);
+    routeAcc.use('/point', pointRouter);
+    routeAcc.use('/produc-type', productTypeRouter);
     return routeAcc;
 })();
