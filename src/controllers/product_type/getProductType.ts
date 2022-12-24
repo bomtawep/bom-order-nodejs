@@ -2,15 +2,24 @@ import conPool = require('../../database')
 
 const getProductTypePool = (request: any, response: any) => {
     const { id } = request.params
+    const rawResp = (rawData: any) => {
+        const {id, name, created, updated} = rawData
+        const rawDataResp = {
+            id: id,
+            name: name,
+            created: created.toISOString().replace(/T/, ' ').replace(/\..+/, ''),
+            updated: updated.toISOString().replace(/T/, ' ').replace(/\..+/, '')
+        }
+        return {data: rawDataResp}
+    }
     if(id == null || id == "") {
         response.status(503).send(`Please put id in your request to get result.`)
     } else {
-        conPool.query('SELECT * FROM accounts where id = ($1)', [id], (error: any, results: any) => {
+        conPool.query('SELECT * FROM bomorder.product_type where id = ($1)', [id], (error: any, results: any) => {
             if (error) {
                 throw error
             } else {
-                console.log(request)
-                response.status(200).json(results.rows)
+                response.status(200).json(rawResp(results.rows[0]))
             }
         })
     }

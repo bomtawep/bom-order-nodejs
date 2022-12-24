@@ -4,21 +4,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const orders = require('../controllers/order');
+const products = require('../controllers/product');
 const routeAcc = express_1.default.Router();
-routeAcc.get('/orders', function (req, res) {
-    orders.getOrders(res);
+routeAcc.get('/products', function (req, res) {
+    products.getProducts(res);
 });
-routeAcc.post('/order', function (req, res) {
-    orders.createOrder(req, res);
+routeAcc.post('/product', function (req, res) {
+    products.createProduct(req, res);
 });
-routeAcc.delete('/order', function (req, res) {
-    orders.deleteOrder(req, res);
+routeAcc.delete('/product', function (req, res) {
+    products.deleteProduct(req, res);
 });
-routeAcc.get('/order/:id', function (req, res) {
-    orders.getOrder(req, res);
+routeAcc.get('/product/:id', function (req, res) {
+    products.getProduct(req, res);
 });
-routeAcc.put('/order/:id', function (req, res) {
-    orders.updateOrder(req, res);
+routeAcc.put('/product/:id', function (req, res) {
+    products.updateProduct(req, res);
 });
 module.exports = routeAcc;

@@ -8,7 +8,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const bodyParser = require('body-parser');
-const routeAcc = require('./routes');
+const route = require('./routes');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true,
@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({
 app.get("/", (req, res, next) => {
     res.send("home");
 });
-app.use('/api', routeAcc);
+app.use('/api', route);
 app.listen(process.env.PORT, () => {
     console.log(`Server is running at port: ${process.env.PORT}`);
 });
