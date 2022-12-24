@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2022-12-24T10:13:34.841Z" agent="5.0 (Macintosh)" etag="eAAuArilMLGVuFvny_qC" version="20.6.2" type="github">
+<mxfile host="app.diagrams.net" modified="2022-12-24T10:15:22.566Z" agent="5.0 (Macintosh)" etag="R7TdYnYdJ7-vyeTgFITN" version="20.6.2" type="github">
   <diagram name="bom-order-er" id="5d7acffa-a066-3a61-03fe-96351882024d">
-    <mxGraphModel dx="2992" dy="1050" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#ffffff" math="0" shadow="0">
+    <mxGraphModel dx="3642" dy="1016" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#ffffff" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -368,7 +368,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="rkOTiN757Bld_D0Bsvgv-71" value="product_type" style="shape=table;startSize=30;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;" parent="1" vertex="1">
-          <mxGeometry x="830" y="510" width="180" height="150" as="geometry" />
+          <mxGeometry x="810" y="880" width="180" height="150" as="geometry" />
         </mxCell>
         <mxCell id="rkOTiN757Bld_D0Bsvgv-72" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=1;" parent="rkOTiN757Bld_D0Bsvgv-71" vertex="1">
           <mxGeometry y="30" width="180" height="30" as="geometry" />
@@ -732,7 +732,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="Y1Y8oUk_v3U6UHBbldAs-1" value="image" style="shape=table;startSize=30;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;" parent="1" vertex="1">
-          <mxGeometry x="870" y="210" width="180" height="270" as="geometry" />
+          <mxGeometry x="810" y="440" width="180" height="270" as="geometry" />
         </mxCell>
         <mxCell id="Y1Y8oUk_v3U6UHBbldAs-2" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=1;" parent="Y1Y8oUk_v3U6UHBbldAs-1" vertex="1">
           <mxGeometry y="30" width="180" height="30" as="geometry" />
