@@ -5,7 +5,6 @@ FROM node:16.13.1-alpine3.14
 # all files we put in the Docker container running the server will be in /usr/src/app (e.g. /usr/src/app/package.json)
 WORKDIR /usr/src/app
 
-RUN pip install Flask==0.11.1 
 RUN useradd -ms /bin/bash admin
 RUN chown -R admin:admin /usr/src/app/dist
 RUN chmod 755 /usr/src/app/dist
