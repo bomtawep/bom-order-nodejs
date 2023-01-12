@@ -6,7 +6,7 @@ const updateUserPool = (request: any, response: any) => {
     if(id == null || id == "") {
         response.status(503).send(`Please put id in your request to update id: $id .`)
     } else {
-        conPool.query('UPDATE accounts SET username = ($1), password = ($2) where id = ($3)', [username, password, id], (error: any, results: any) => {
+        conPool.query('UPDATE bomorder.accounts SET username = ($1), password = ($2) where id = ($3)', [username, password, id], (error: any, results: any) => {
             if (error) {
                 throw error
             } else {
