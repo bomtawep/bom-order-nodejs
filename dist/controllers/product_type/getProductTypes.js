@@ -4,6 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = __importDefault(require("../../database"));
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 const rawResp = (rawData) => {
     let rawDataResp = [];
     rawData.forEach(function (value) {
@@ -20,7 +22,9 @@ const getProductTypesPool = (res) => {
     database_1.default.query('SELECT * FROM bomorder.product_type ORDER BY id ASC', (error, results) => {
         if (error)
             throw error;
-        res.status(200).json(rawResp(results.rows));
+        res
+            .status(200)
+            .json(rawResp(results.rows));
     });
 };
 module.exports = {

@@ -12,7 +12,8 @@ const createProductTypePool = (request, response) => {
             if (error) {
                 throw error;
             }
-            response.status(201).send('Created');
+            response.status(201)
+                .send('Created');
         });
     }
 };

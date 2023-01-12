@@ -1,7 +1,5 @@
-import { defaults, Pool } from "pg";
-import dotenv from "dotenv";
+import { Pool } from "pg";
 
-dotenv.config();
 const connPool = new Pool({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
