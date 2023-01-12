@@ -7,7 +7,7 @@ const deleteUserPool = (request, response) => {
         response.status(503).send(`Please put id in your request to delete.`);
     }
     else {
-        conPool.query('DELETE FROM accounts where id = ($1)', [id], (error, results) => {
+        conPool.query('DELETE FROM bomorder.accounts where id = ($1)', [id], (error, results) => {
             if (error) {
                 throw error;
             }
