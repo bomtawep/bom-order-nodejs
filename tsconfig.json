@@ -14,7 +14,6 @@
     ]
   },
   "exclude": [
-    "node_modules",
-    "/usr/src/app/dist"
+    "node_modules"
   ]
 }
