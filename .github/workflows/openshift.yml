@@ -85,7 +85,7 @@ jobs:
       run: docker images
 
   openshift-ci-cd:
-    
+    needs: build
     # 🖊️ Uncomment this if you are using CRDA scan step above
     # needs: crda-scan
     name: Build and deploy to OpenShift
@@ -166,9 +166,7 @@ jobs:
         # Otherwise, point this to your Dockerfile/Containerfile relative to the repository root.
         dockerfiles: |
           ./Dockerfile
-          - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag bom-order:$(date +%s)
+        run: docker build . --file Dockerfile --tag bom-order:$(date +%s)
     - name: ps Docker image
       run: docker images
 
