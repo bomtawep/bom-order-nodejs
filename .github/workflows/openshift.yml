@@ -73,7 +73,19 @@ jobs:
 #       CRDA_KEY: ${{ secrets.CRDA_KEY }}
       # SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}       # Either use SNYK_TOKEN or CRDA_KEY
 
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag bom-order:$(date +%s)
+    - name: ps Docker image
+      run: docker images
+
   openshift-ci-cd:
+    needs: build
     # 🖊️ Uncomment this if you are using CRDA scan step above
     # needs: crda-scan
     name: Build and deploy to OpenShift
@@ -154,6 +166,8 @@ jobs:
         # Otherwise, point this to your Dockerfile/Containerfile relative to the repository root.
         dockerfiles: |
           ./Dockerfile
+    - name: ps Docker image
+      run: docker images
 
     # https://github.com/redhat-actions/push-to-registry#readme
     - name: Push to registry
