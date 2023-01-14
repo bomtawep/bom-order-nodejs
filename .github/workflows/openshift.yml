@@ -166,7 +166,7 @@ jobs:
         # Otherwise, point this to your Dockerfile/Containerfile relative to the repository root.
         dockerfiles: |
           ./Dockerfile
-        run: docker build . --file Dockerfile --tag bom-order:$(date +%s)
+          docker build . --file Dockerfile --tag bom-order:$(date +%s)
     - name: ps Docker image
       run: docker images
 
