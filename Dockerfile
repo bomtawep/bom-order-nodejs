@@ -16,4 +16,4 @@ RUN npm install
 
 EXPOSE 8080
 # Runs the dev npm script to build & start the server
-#CMD docker-compose up
+CMD npm stop, npm start
