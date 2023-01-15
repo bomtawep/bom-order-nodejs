@@ -6,14 +6,16 @@ FROM node:16.13.1-alpine3.14
 WORKDIR /usr/src/app
 
 # Copies package.json, package-lock.json, tsconfig.json, .env to the root of WORKDIR
-COPY ["package.json", "package-lock.json", "tsconfig.json", ".env", "./"]
+COPY ["package.json", "package-lock.json", "tsconfig.json", ".env", "docker-compose.yml", "./"]
 
 # Copies everything in the src directory to WORKDIR/src
 COPY ./src ./src
+COPY ./dist ./dist
+COPY ./images ./images
 
 # Installs all packages
 RUN npm install
 
 EXPOSE 8080
 # Runs the dev npm script to build & start the server
-CMD npm run dev
+CMD npm run start
