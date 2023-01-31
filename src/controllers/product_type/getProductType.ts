@@ -3,10 +3,11 @@ import conPool = require('../../database')
 const getProductTypePool = (request: any, response: any) => {
     const { id } = request.params
     const rawResp = (rawData: any) => {
-        const {id, name, created, updated} = rawData
+        const {id, name, is_active, created, updated} = rawData
         const rawDataResp = {
             id: id,
             name: name,
+            is_active: is_active,
             created: created.toISOString().replace(/T/, ' ').replace(/\..+/, ''),
             updated: updated.toISOString().replace(/T/, ' ').replace(/\..+/, '')
         }
