@@ -12,6 +12,7 @@ const rawResp = (rawData) => {
         rawDataResp.push({
             id: value.id,
             name: value.name,
+            is_active: value.is_active,
             created: value.created.toISOString().replace(/T/, ' ').replace(/\..+/, ''),
             updated: value.updated.toISOString().replace(/T/, ' ').replace(/\..+/, '')
         });
