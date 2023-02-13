@@ -208,6 +208,7 @@ jobs:
     - name: Print application URL
       run: |
         oc apply -f ./deploy/.
+        oc expose svc/postgres
           
     - name: Print application URL
       env:
