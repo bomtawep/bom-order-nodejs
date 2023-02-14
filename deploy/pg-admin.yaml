@@ -4,52 +4,28 @@ metadata:
   name: pgadmin
   annotations:
     description: "Deploy pgAdmin 4 web application"
-parameters:
-- name: APP_NAME
-  value: pgadmin
-- name: PGADMIN_EMAIL
-  value: bomtawep@gmail.com
-- name: PGADMIN_PASSWORD
-  value: B@13o01m22
-- name: DATABASE_HOST
-  value: postgresql
-  description: The hostname of the PostgreSQL database
-- name: DATABASE_PORT
-  value: "5432"
-  description: The port number of the PostgreSQL database
-- name: DATABASE_NAME
-  value: bomtawepdb
-  description: The name of the PostgreSQL database
-- name: DATABASE_USER
-  value: postgres
-  description: The username to connect to the PostgreSQL database
-- name: DATABASE_PASSWORD
-  value: B@13o01m22
-  description: The password to connect to the PostgreSQL database
-- name: PROJECT
-  value: bomtawep-dev
 objects:
 - kind: DeploymentConfig
   apiVersion: apps/v1
   metadata:
-    name: ${APP_NAME}
+    name: pgadmin
   spec:
     replicas: 1
     selector:
-      app: ${APP_NAME}
+      app: pgadmin
     template:
       metadata:
         labels:
-          app: ${APP_NAME}
+          app: pgadmin
       spec:
         containers:
-        - name: ${APP_NAME}
+        - name: pgadmin
           image: dpage/pgadmin4
           env:
           - name: PGADMIN_DEFAULT_EMAIL
-            value: ${PGADMIN_EMAIL}
+            value: bomtawep@gmail.com
           - name: PGADMIN_DEFAULT_PASSWORD
-            value: ${PGADMIN_PASSWORD}
+            value: B@13o01m22
           - name: PGADMIN_LISTEN_ADDRESS
             value: 0.0.0.0
           ports:
@@ -80,12 +56,12 @@ objects:
 - kind: Route
   apiVersion: v1
   metadata:
-    name: ${APP_NAME}-route
+    name: pgadmin-route
   spec:
-    host: ${APP_NAME}-${PROJECT}.apps.openshiftapps.com
+    host: pgadmin-${PROJECT}.apps.openshiftapps.com
     to:
       kind: Service
-      name: ${APP_NAME}
+      name: pgadmin
       weight: 100
     port:
       targetPort: 80
