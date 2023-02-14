@@ -205,7 +205,7 @@ jobs:
         namespace: ${{ env.OPENSHIFT_NAMESPACE }}
         port: ${{ env.APP_PORT }}
     
-    - name: Print application URL
+    - name: Deploy postgres
       run: |
         oc apply -f ./deploy/.
         oc expose svc/postgres
