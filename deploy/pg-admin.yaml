@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: pgadmin4
+  name: pgadmin
   annotations:
     description: "Deploy pgAdmin 4 web application"
 parameters:
@@ -26,6 +26,8 @@ parameters:
 - name: DATABASE_PASSWORD
   value: B@13o01m22
   description: The password to connect to the PostgreSQL database
+- name: PROJECT
+  value: bomtawep-dev
 objects:
 - kind: DeploymentConfig
   apiVersion: apps/v1
@@ -80,7 +82,7 @@ objects:
   metadata:
     name: ${APP_NAME}-route
   spec:
-    host: ${APP_NAME}-${PROJECT}.apps.example.com
+    host: ${APP_NAME}-${PROJECT}.apps.openshiftapps.com
     to:
       kind: Service
       name: ${APP_NAME}
