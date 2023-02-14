@@ -4,8 +4,6 @@ RUN groupadd non-root-postgres-group
 RUN useradd non-root-postgres-user --group non-root-postgres-group
 RUN chown -R non-root-postgres-user:non-root-postgres-group /temp
 RUN chmod 777 /temp
-RUN chmod 777 /venv/bin
-RUN chmod 777 /var/lib/postgresql/data
 USER non-root-postgres
 
 # Installs Node.js image
