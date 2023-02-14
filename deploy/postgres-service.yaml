@@ -1,8 +1,8 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: postgresql
-  namespace: todo
+  name: bom-order-nodejs
+  namespace: bomtawep-dev
   annotations:
     argocd.argoproj.io/sync-wave: "0"
 spec:
