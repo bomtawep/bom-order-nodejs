@@ -30,9 +30,9 @@ spec:
             - name: PGADMIN_CONFIG_SERVER_MODE
               value: "False"
             - name: PGADMIN_DEFAULT_EMAIL
-              value: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+              value: bomtawep@gmail.com
             - name: PGADMIN_DEFAULT_PASSWORD
-              value: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+              value: B@13o01m22
           image: dpage/pgadmin4
           name: pgadmin-container
           ports:
