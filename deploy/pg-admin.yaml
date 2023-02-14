@@ -2,41 +2,95 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: pgadmin
-spec:
-  selector:
-   matchLabels:
-    app: pgadmin
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: pgadmin
-    spec:
-      containers:
-        - name: pgadmin4
+  annotations:
+    description: "Deploy pgAdmin 4 web application"
+parameters:
+- name: APP_NAME
+  value: pgadmin
+- name: PGADMIN_EMAIL
+  value: bomtawep@gmail.com
+- name: PGADMIN_PASSWORD
+  value: B@13o01m22
+- name: DATABASE_HOST
+  value: postgresql
+  description: The hostname of the PostgreSQL database
+- name: DATABASE_PORT
+  value: "5432"
+  description: The port number of the PostgreSQL database
+- name: DATABASE_NAME
+  value: bomtawepdb
+  description: The name of the PostgreSQL database
+- name: DATABASE_USER
+  value: postgres
+  description: The username to connect to the PostgreSQL database
+- name: DATABASE_PASSWORD
+  value: B@13o01m22
+  description: The password to connect to the PostgreSQL database
+- name: PROJECT
+  value: bomtawep-dev
+objects:
+- kind: DeploymentConfig
+  apiVersion: apps/v1
+  metadata:
+    name: ${APP_NAME}
+  spec:
+    replicas: 1
+    selector:
+      app: ${APP_NAME}
+    template:
+      metadata:
+        labels:
+          app: ${APP_NAME}
+      spec:
+        containers:
+        - name: ${APP_NAME}
           image: dpage/pgadmin4
-          imagePullPolicy: IfNotPresent
           env:
-           - name: PGADMIN_DEFAULT_EMAIL
-             value: "puntakaj@ais.co.th"
-           - name: PGADMIN_DEFAULT_PASSWORD
-             value: "1234"
-           - name: PGADMIN_PORT
-             value: "80"
+          - name: PGADMIN_DEFAULT_EMAIL
+            value: ${PGADMIN_EMAIL}
+          - name: PGADMIN_DEFAULT_PASSWORD
+            value: ${PGADMIN_PASSWORD}
+          - name: PGADMIN_LISTEN_ADDRESS
+            value: 0.0.0.0
           ports:
-            - containerPort: 80
-              name: pgadminport
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: pgadmin
-  labels:
-    app: pgadmin
-spec:
-  selector:
-   app: pgadmin
-  type: NodePort
-  ports:
-   - port: 80
-     nodePort: 30200
+          - containerPort: 80
+            name: http
+          - containerPort: 443
+            name: https
+          livenessProbe:
+            httpGet:
+              path: /misc/ping
+              port: http
+            initialDelaySeconds: 30
+            timeoutSeconds: 5
+            periodSeconds: 30
+            successThreshold: 1
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /misc/ping
+              port: http
+            initialDelaySeconds: 30
+            timeoutSeconds: 5
+            periodSeconds: 30
+            successThreshold: 1
+            failureThreshold: 3
+        imagePullSecrets:
+        - name: myregistrykey
+- kind: Route
+  apiVersion: v1
+  metadata:
+    name: ${APP_NAME}-route
+  spec:
+    host: ${APP_NAME}-${PROJECT}.apps.openshiftapps.com
+    to:
+      kind: Service
+      name: ${APP_NAME}
+      weight: 100
+    port:
+      targetPort: 80
+  status:
+    ingress:
+    - conditions:
+      - status: "True"
+        type: Admitted
