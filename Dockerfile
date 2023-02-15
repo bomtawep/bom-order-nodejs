@@ -12,7 +12,8 @@ COPY ["package.json", "package-lock.json", "tsconfig.json", ".env", "./"]
 COPY ./src ./src
 COPY ./dist ./dist
 COPY ./images ./images
-
+RUN chgrp -R 0 / && \
+    chmod -R g=u / 
 # Installs all packages
 RUN npm install
 
