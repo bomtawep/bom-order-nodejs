@@ -18,7 +18,7 @@ spec:
           imagePullPolicy: IfNotPresent
           env:
            - name: PGADMIN_DEFAULT_EMAIL
-             value: "puntakaj@ais.co.th"
+             value: "bomtawep@gmail.com"
            - name: PGADMIN_DEFAULT_PASSWORD
              value: "1234"
            - name: PGADMIN_PORT

@@ -19,7 +19,7 @@ spec:
             - containerPort: 5432
               protocol: TCP
           env:
-            - name: Quarkus_DB
+            - name: POSTGRES_DB
               value: postgres
             - name: POSTGRES_USER
               value: postgres
