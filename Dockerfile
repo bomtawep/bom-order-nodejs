@@ -1,3 +1,7 @@
+FROM dpage/pgadmin4:5.5
+USER root
+RUN setcap -r /usr/bin/python3.8
+USER pgadmin
 # Installs Node.js image
 FROM node:16.13.1-alpine3.14
 
@@ -12,8 +16,7 @@ COPY ["package.json", "package-lock.json", "tsconfig.json", ".env", "./"]
 COPY ./src ./src
 COPY ./dist ./dist
 COPY ./images ./images
-RUN chgrp -R 0 / && \
-    chmod -R g=u / 
+
 # Installs all packages
 RUN npm install
 
