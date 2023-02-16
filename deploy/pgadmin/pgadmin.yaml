@@ -27,6 +27,7 @@ spec:
           ports:
             - containerPort: 80
               name: pgadminport
+      restartPolicy: Always
 ---
 apiVersion: v1
 kind: Service
