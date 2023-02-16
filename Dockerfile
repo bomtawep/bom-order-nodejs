@@ -1,9 +1,10 @@
-FROM dpage/pgadmin4:5.5
-USER root
-RUN setcap -r /usr/bin/python3.8
-USER pgadmin
-# Installs Node.js image
-FROM node:16.13.1-alpine3.14
+FROM postgres:12 
+RUN mkdir temp
+RUN groupadd non-root-postgres-group
+RUN useradd non-root-postgres-user --group non-root-postgres-group
+RUN chown -R non-root-postgres-user:non-root-postgres-group /temp
+RUN chmod 777 /temp
+USER non-root-postgres
 
 # sets the working directory for any RUN, CMD, COPY command
 # all files we put in the Docker container running the server will be in /usr/src/app (e.g. /usr/src/app/package.json)

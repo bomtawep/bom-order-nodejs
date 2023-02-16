@@ -14,7 +14,6 @@ spec:
       containers:
         - name: postgres
           image: postgres:latest
-          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 5432
               protocol: TCP
@@ -25,6 +24,18 @@ spec:
               value: postgres
             - name: POSTGRES_PASSWORD
               value: "1234"
+            - name: PGDATA
+              value: /temp/data
+          image: image-registry.openshift-image-registry.svc:5000/postgres/non-root-postgres:latest
+          imagePullPolicy: Always
+          resources:
+          limits:
+            cpu: 60m
+            memory: 512Mi
+          requests:
+            cpu: 30m
+            memory: 128Mi
+          restartPolicy: Always
 ---
 apiVersion: v1
 kind: Service
