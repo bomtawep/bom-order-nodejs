@@ -26,7 +26,7 @@ spec:
               value: "1234"
             - name: PGDATA
               value: /temp/data
-          #image: image-registry.openshift-image-registry.svc:5432/postgres/non-root-postgres:latest
+          image: image-registry.openshift-image-registry.svc:5000/openshift/postgres/non-root-postgres:latest
           imagePullPolicy: Always
           resources:
           limits:
