@@ -1,10 +1,4 @@
 FROM postgres:12 
-RUN mkdir temp
-RUN groupadd non-root-postgres-group
-RUN useradd non-root-postgres-user --group non-root-postgres-group
-RUN chown -R non-root-postgres-user:non-root-postgres-group /temp
-RUN chmod 777 /temp
-USER non-root-postgres
 
 # sets the working directory for any RUN, CMD, COPY command
 # all files we put in the Docker container running the server will be in /usr/src/app (e.g. /usr/src/app/package.json)
@@ -20,6 +14,12 @@ COPY ./images ./images
 
 # Installs all packages
 RUN npm install
+RUN mkdir temp
+RUN groupadd non-root-postgres-group
+RUN useradd non-root-postgres-user --group non-root-postgres-group
+RUN chown -R non-root-postgres-user:non-root-postgres-group /temp
+RUN chmod 777 /temp
+USER non-root-postgres
 
 EXPOSE 8080
 # Runs the dev npm script to build & start the server
