@@ -60,23 +60,8 @@ on:
     branches: [ "master" ]
 
 jobs:
-  # 🖊️ EDIT if you want to run vulnerability check on your project before deploying
-  # the application. Please uncomment the below CRDA scan job and configure to run it in
-  # your workflow. For details about CRDA action visit https://github.com/redhat-actions/crda/blob/main/README.md
-  #
-  # TODO: Make sure to add 'CRDA Scan' starter workflow from the 'Actions' tab.
-  # For guide on adding new starter workflow visit https://docs.github.com/en/github-ae@latest/actions/using-workflows/using-starter-workflows
-
-#   crda-scan:
-#     uses: ./.github/workflows/crda.yml
-#     secrets:
-#       CRDA_KEY: ${{ secrets.CRDA_KEY }}
-      # SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}       # Either use SNYK_TOKEN or CRDA_KEY
-
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
@@ -86,9 +71,7 @@ jobs:
 
   openshift-ci-cd:
     needs: build
-    # 🖊️ Uncomment this if you are using CRDA scan step above
-    # needs: crda-scan
-    name: Build and deploy to OpenShift
+    name: deploy to OpenShift
     runs-on: ubuntu-20.04
     environment: production
 
@@ -153,7 +136,6 @@ jobs:
       run: |
         echo "IMAGE_TAGS=latest ${GITHUB_SHA::12}" | tee -a $GITHUB_ENV
 
-    # https://github.com/redhat-actions/buildah-build#readme
     - name: Build from Dockerfile
       id: build-image
       uses: redhat-actions/buildah-build@v2
@@ -161,9 +143,6 @@ jobs:
         image: ${{ env.APP_NAME }}
         tags: ${{ env.IMAGE_TAGS }}
 
-        # If you don't have a Dockerfile/Containerfile, refer to https://github.com/redhat-actions/buildah-build#scratch-build-inputs
-        # Or, perform a source-to-image build using https://github.com/redhat-actions/s2i-build
-        # Otherwise, point this to your Dockerfile/Containerfile relative to the repository root.
         dockerfiles: |
           ./Dockerfile
 
@@ -178,14 +157,11 @@ jobs:
         username: ${{ env.IMAGE_REGISTRY_USER }}
         password: ${{ env.IMAGE_REGISTRY_PASSWORD }}
 
-    # The path the image was pushed to is now stored in ${{ steps.push-image.outputs.registry-path }}
-
     - name: Install oc
       uses: redhat-actions/openshift-tools-installer@v1
       with:
         oc: 4
 
-    # https://github.com/redhat-actions/oc-login#readme
     - name: Log in to OpenShift
       uses: redhat-actions/oc-login@v1
       with:
@@ -194,8 +170,6 @@ jobs:
         insecure_skip_tls_verify: true
         namespace: ${{ env.OPENSHIFT_NAMESPACE }}
 
-    # This step should create a deployment, service, and route to run your app and expose it to the internet.
-    # https://github.com/redhat-actions/oc-new-app#readme
     - name: Create and expose app
       id: deploy-and-expose
       uses: redhat-actions/oc-new-app@v1
@@ -208,18 +182,6 @@ jobs:
     - name: Deploy postgres
       run: |
         docker build ./deploy --file Dockerfile --tag bom-order-postgres:$(date +%s)
+        oc new-project postgres
         oc apply -f ./deploy/.
         oc expose svc/postgres
-          
-    - name: Print application URL
-      env:
-        ROUTE: ${{ steps.deploy-and-expose.outputs.route }}
-        SELECTOR: ${{ steps.deploy-and-expose.outputs.selector }}
-      run: |
-        [[ -n ${{ env.ROUTE }} ]] || (echo "Determining application route failed in previous step"; exit 1)
-        echo
-        echo "======================== Your application is available at: ========================"
-        echo ${{ env.ROUTE }}
-        echo "==================================================================================="
-        echo
-        echo "Your app can be taken down with: \"oc delete all --selector='${{ env.SELECTOR }}'\""
