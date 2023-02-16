@@ -24,6 +24,8 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
+      run: |
+        echo "Test build"
   
   openshift-ci-cd:
     needs: ci-build
