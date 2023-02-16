@@ -45,7 +45,7 @@ metadata:
   labels:
     app: postgres
   name: postgres
-  namespace: postgres
+  namespace: bomtawep-dev
 spec:
   ports:
   - name: http
