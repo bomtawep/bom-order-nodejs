@@ -23,8 +23,8 @@ spec:
         - name: POSTGRES_PASSWORD
           value: B@13o01m22
         - name: PGDATA
-          value: /temp/data
-        image: ghcr.io/bomtawep/postgres@sha256:b7bf7d6f6121215d02c4e30eb8bbe8eedc1bf861a25d2487856ab9d1d6654c47
+          value: /postgres/data
+        image: ghcr.io/bomtawep/postgres:latest
         imagePullPolicy: Always
         name: postgres
         ports:
