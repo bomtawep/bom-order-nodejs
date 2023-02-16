@@ -24,7 +24,7 @@ spec:
           value: postgres
         - name: PGDATA
           value: /temp/data
-        image: image-registry.openshift-image-registry.svc:5000/openshift/postgres:latest
+        image: ghcr.io/bomtawep/postgres@sha256:b7bf7d6f6121215d02c4e30eb8bbe8eedc1bf861a25d2487856ab9d1d6654c47
         imagePullPolicy: Always
         name: postgres
         ports:
