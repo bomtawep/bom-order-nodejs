@@ -1,6 +1,4 @@
 FROM alpine:latest AS app-builder
-RUN mkdir /var/lib/postgresql/data
-RUN mkdir /var/run/postgresql
 RUN groupadd non-root-postgres-group
 RUN useradd non-root-postgres-user --group non-root-postgres-group
 RUN chown -R non-root-postgres-user:non-root-postgres-group /var/lib/postgresql/data
