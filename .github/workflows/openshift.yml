@@ -106,7 +106,7 @@ jobs:
         image: ${{ env.POSTGRES_NAME }}
         tags: ${{ env.IMAGE_TAGS }}
         dockerfiles: |
-          ./deploy/Dockerfile
+          ./deploy/postgres/Dockerfile
           
     - name: Build from pgadmin Dockerfile
       id: build-image-pgadmin
@@ -115,7 +115,7 @@ jobs:
         image: ${{ env.PGADMIN_NAME }}
         tags: ${{ env.IMAGE_TAGS }}
         dockerfiles: |
-          ./deploy/Dockerfile
+          ./deploy/pgadmin/Dockerfile
 
     - name: Push to registry
       id: push-image
@@ -171,7 +171,7 @@ jobs:
     
     - name: Deploy kubernates postgres
       run: |
-        oc apply -f ./deploy/postgres.yaml
+        oc apply -f ./deploy/postgres/postgres.yaml
         oc expose svc/postgres
-        oc apply -f ./deploy/pgadmin.yaml
+        oc apply -f ./deploy/pgadmin/pgadmin.yaml
         oc expose svc/pgadmin
