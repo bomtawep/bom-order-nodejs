@@ -150,8 +150,6 @@ jobs:
     
     - name: Deploy kubernates postgres
       run: |
-        oc new-project postgres
-        oc project postgres
         CD ./deploy
         oc new-build --name build-postgres --binary --strategy docker
         oc start-build build-postgres --from-dir=.
