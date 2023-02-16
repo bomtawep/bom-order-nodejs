@@ -1,7 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  labels:
+    app: postgres
   name: postgres
+  namespace: postgres
 spec:
   selector:
     matchLabels:
@@ -12,29 +15,29 @@ spec:
         app: postgres
     spec:
       containers:
-        - name: postgres
-          ports:
-            - containerPort: 5432
-              protocol: TCP
-          env:
-            - name: POSTGRES_DB
-              value: postgres
-            - name: POSTGRES_USER
-              value: postgres
-            - name: POSTGRES_PASSWORD
-              value: "1234"
-            - name: PGDATA
-              value: /temp/data
-          image: image-registry.openshift-image-registry.svc:5000/bomtawep-dev/postgres:latest
-          imagePullPolicy: Always
-          resources:
+      - env:
+        - name: POSTGRES_DB
+          value: postgres
+        - name: POSTGRES_USER
+          value: postgres
+        - name: POSTGRES_PASSWORD
+          value: postgres
+        - name: PGDATA
+          value: /temp/data
+        image: image-registry.openshift-image-registry.svc:5000/openshift/postgres:latest
+        imagePullPolicy: Always
+        name: postgres
+        ports:
+        - containerPort: 5432
+          protocol: TCP
+        resources:
           limits:
             cpu: 60m
             memory: 512Mi
           requests:
             cpu: 30m
             memory: 128Mi
-          restartPolicy: Always
+      restartPolicy: Always
 ---
 apiVersion: v1
 kind: Service
@@ -42,11 +45,12 @@ metadata:
   labels:
     app: postgres
   name: postgres
+  namespace: postgres
 spec:
   ports:
-    - name: http
-      port: 5432
-      protocol: TCP
+  - name: http
+    port: 5432
+    protocol: TCP
   selector:
     app: postgres
-  type: NodePort
+#  type: NodePort
