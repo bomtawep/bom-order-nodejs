@@ -150,6 +150,5 @@ jobs:
     
     - name: Deploy kubernates postgres
       run: |
-        oc new-project postgres
         oc apply -f ./deploy/postgres.yaml
         oc expose svc/postgres
