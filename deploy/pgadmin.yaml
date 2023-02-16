@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: pgadmin
+  namespace: bomtawep-dev
 spec:
   selector:
    matchLabels:
@@ -13,9 +14,9 @@ spec:
         app: pgadmin
     spec:
       containers:
-        - name: pgadmin4
-          image: dpage/pgadmin4
-          imagePullPolicy: IfNotPresent
+        - name: pgadmin
+          image: ghcr.io/bomtawep/pgadmin:latest
+          imagePullPolicy: Always
           env:
            - name: PGADMIN_DEFAULT_EMAIL
              value: "bomtawep@gmail.com"
@@ -33,6 +34,7 @@ metadata:
   name: pgadmin
   labels:
     app: pgadmin
+  namespace: bomtawep-dev
 spec:
   selector:
    app: pgadmin
