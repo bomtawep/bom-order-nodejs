@@ -181,7 +181,7 @@ jobs:
     
     - name: Deploy postgres
       run: |
-        docker build ./deploy --file Dockerfile --tag bom-order-postgres:$(date +%s)
+        docker build . --file ./deploy/Dockerfile --tag bom-order-postgres:$(date +%s)
         oc new-project postgres
         oc apply -f ./deploy/.
         oc expose svc/postgres
