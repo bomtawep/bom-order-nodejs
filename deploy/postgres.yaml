@@ -25,6 +25,8 @@ spec:
               value: postgres
             - name: POSTGRES_PASSWORD
               value: "1234"
+            - name: PGDATA
+              value: /temp/data
 ---
 apiVersion: v1
 kind: Service
