@@ -150,8 +150,5 @@ jobs:
     
     - name: Deploy kubernates postgres
       run: |
-        CD ./deploy
-        oc new-build --name build-postgres --binary --strategy docker
-        oc start-build build-postgres --from-dir=.
         oc apply -f ./deploy/postgres.yaml
         oc expose svc/postgres
