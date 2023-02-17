@@ -8,7 +8,7 @@ RUN yum update -y && \
     rm -rf /var/cache/yum
 
 # Install pgAdmin4
-RUN npm install pgadmin4
+RUN yum install pgadmin4
 
 # Create a pgAdmin4 configuration file
 RUN touch /usr/lib/python3.6/site-packages/pgadmin4/config_local.py && \
