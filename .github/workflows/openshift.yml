@@ -154,5 +154,6 @@ jobs:
       run: |
         oc apply -f ./deploy/postgres/postgres.yaml
         oc expose svc/postgres
-        oc apply -f ./deploy/pgadmin/pgadmin.yaml
-        oc expose svc/pgadmin
+        oc apply -f ./deploy/pgadmin/pgadmin-service.yaml
+        oc apply -f ./deploy/pgadmin/pgadmin-deployment.yaml
+        oc expose service pgadmin --port=80 --name=pgadmin-route
