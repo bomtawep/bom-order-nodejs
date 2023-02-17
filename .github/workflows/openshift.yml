@@ -107,6 +107,15 @@ jobs:
         tags: ${{ env.IMAGE_TAGS }}
         dockerfiles: |
           ./deploy/postgres/Dockerfile
+          
+    - name: Build from pgadmin Dockerfile
+      id: build-image-pgadmin
+      uses: redhat-actions/buildah-build@v2
+      with:
+        image: ${{ env.PGADMIN_NAME }}
+        tags: ${{ env.IMAGE_TAGS }}
+        dockerfiles: |
+          ./deploy/pgadmin/Dockerfile
 
     - name: Push to registry
       id: push-image
@@ -124,6 +133,16 @@ jobs:
       with:
         image: ${{ steps.build-image-postgres.outputs.image }}
         tags: ${{ steps.build-image-postgres.outputs.tags }}
+        registry: ${{ env.IMAGE_REGISTRY }}
+        username: ${{ env.IMAGE_REGISTRY_USER }}
+        password: ${{ env.IMAGE_REGISTRY_PASSWORD }}
+        
+    - name: Push pgadmin to registry
+      id: push-image-pgadmin
+      uses: redhat-actions/push-to-registry@v2
+      with:
+        image: ${{ steps.build-image-pgadmin.outputs.image }}
+        tags: ${{ steps.build-image-pgadmin.outputs.tags }}
         registry: ${{ env.IMAGE_REGISTRY }}
         username: ${{ env.IMAGE_REGISTRY_USER }}
         password: ${{ env.IMAGE_REGISTRY_PASSWORD }}
@@ -153,4 +172,6 @@ jobs:
     - name: Deploy kubernates postgres
       run: |
         oc apply -f ./deploy/postgres/postgres.yaml
-        oc expose svc/postgres --name=postgres
+        oc expose svc/postgres
+        oc apply -f ./deploy/pgadmin/pgadmin.yaml
+        oc expose svc/pgadmin
