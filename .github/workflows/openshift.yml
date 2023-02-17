@@ -149,17 +149,9 @@ jobs:
         image: ${{ steps.push-image.outputs.registry-path }}
         namespace: ${{ env.OPENSHIFT_NAMESPACE }}
         port: ${{ env.APP_PORT }}
-        
-    - name: Create postgres
-      id: deploy-postgres
-      uses: redhat-actions/oc-new-app@v1
-      with:
-        app_name: ${{ env.POSTGRES_NAME }}
-        image: ${{ steps.push-image-postgres.outputs.registry-path }}
-        namespace: ${{ env.OPENSHIFT_NAMESPACE }}
-        port: ${{ env.POSTGRES_PORT }}
     
     - name: Deploy kubernates postgres
       run: |
+        oc delete route postgres
         oc apply -f ./deploy/postgres/postgres.yaml
         oc expose svc/postgres
