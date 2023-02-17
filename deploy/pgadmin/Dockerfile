@@ -2,7 +2,7 @@
 FROM python:3.9-slim-buster
 
 # Set environment variables
-ENV PGADMIN_VERSION=5.7 \
+ENV PGADMIN_VERSION=6.20 \
     PGADMIN_SETUP_EMAIL=your_email@example.com \
     PGADMIN_SETUP_PASSWORD=your_password
 
