@@ -27,7 +27,11 @@ spec:
           ports:
             - containerPort: 80
               name: pgadminport
-      restartPolicy: Always
+          volumes:
+            - /var/lib/pgadmin
+          depends_on:
+            - postgres
+          restartPolicy: Always
 ---
 apiVersion: v1
 kind: Service
