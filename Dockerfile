@@ -6,9 +6,9 @@ COPY ./src ./src
 COPY ./dist ./dist
 COPY ./images ./images
 RUN npm install
-
-RUN npm install telnet-client
-
+RUN deluser --remove-home node \
+  && addgroup -S node -g 999 \
+  && adduser -S -G node -u 999 node
+USER node
 EXPOSE 8080
-USER root
 CMD npm run dev
