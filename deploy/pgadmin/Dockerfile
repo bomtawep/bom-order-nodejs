@@ -1,16 +1,17 @@
-# Set the base image
-FROM centos:7
+FROM dpage/pgadmin4
+WORKDIR /app
 
-# Install required packages
-RUN yum -y update && yum -y install epel-release && \
-    yum -y install python-pip python-devel gcc postgresql-devel && \
-    pip install --upgrade pip
+# Create a virtual environment
+RUN python3 -m venv /venv
 
-# Install pgAdmin
-RUN pip install pgadmin4
+# Activate the virtual environment
+ENV PATH="/venv/bin:$PATH"
 
-# Expose the port
-EXPOSE 80
+# Install any necessary dependencies using pip
+RUN pip install -r requirements.txt
 
-# Start pgAdmin
-CMD ["python", "-m", "pgadmin4"]
+# Change the permission of the /venv/bin/python3 file to make it executable
+RUN chmod +x /venv/bin/python3
+
+# Set the entrypoint command
+ENTRYPOINT ["./entrypoint.sh"]
