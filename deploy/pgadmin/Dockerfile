@@ -18,4 +18,4 @@ RUN apt-get update && \
 EXPOSE 80
 
 # Set the entrypoint command
-ENTRYPOINT ["/usr/pgadmin4/bin/pgAdmin4", "-c", "/pgadmin4/config.py"]
+#ENTRYPOINT ["/usr/pgadmin4/bin/pgAdmin4", "-c", "/pgadmin4/config.py"]
