@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: pgadmin
-          image: dpage/pgadmin4
+          image: ghcr.io/bomtawep/pgadmin:latest
           env:
             - name: PGADMIN_DEFAULT_EMAIL
               value: bomtawep@gmail.com
