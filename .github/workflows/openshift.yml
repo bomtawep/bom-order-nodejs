@@ -152,6 +152,5 @@ jobs:
     
     - name: Deploy kubernates postgres
       run: |
-        oc delete route postgres
         oc apply -f ./deploy/postgres/postgres.yaml
-        oc expose svc/postgres
+        oc expose svc/postgres --name=postgres
