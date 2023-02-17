@@ -1,7 +1,7 @@
 import { Pool } from "pg";
 
 const connPool = new Pool({
-    host: "http://postgres-bomtawep-dev.apps.sandbox-m2.ll9k.p1.openshiftapps.com",
+    host: "127.0.0.1",
     user: "postgres",
     database: "bomtawepdb",
     password: "B@13o01m22",
