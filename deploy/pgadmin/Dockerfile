@@ -1,21 +1,14 @@
-# Base image
-FROM python:3.9-slim-buster
+FROM dpage/pgadmin4
 
 # Set environment variables
-ENV PGADMIN_VERSION=6.20 \
-    PGADMIN_SETUP_EMAIL=your_email@example.com \
-    PGADMIN_SETUP_PASSWORD=your_password
+ENV PGADMIN_DEFAULT_EMAIL=admin@mydomain.com
+ENV PGADMIN_DEFAULT_PASSWORD=mysecretpassword
 
-# Install dependencies
-RUN apt-get update && \
-    apt-get install -y curl gnupg && \
-    curl https://www.pgadmin.org/static/packages_pgadmin_org.pub | apt-key add - && \
-    echo "deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/buster pgadmin4 main" > /etc/apt/sources.list.d/pgadmin4.list && \
-    apt-get update && \
-    apt-get install -y pgadmin4=${PGADMIN_VERSION}
+# Copy over any required configuration files
+COPY config_local.py /pgadmin4/config_local.py
 
-# Expose the pgAdmin port
+# Expose port 80 for pgAdmin
 EXPOSE 80
 
-# Set the entrypoint command
-#ENTRYPOINT ["/usr/pgadmin4/bin/pgAdmin4", "-c", "/pgadmin4/config.py"]
+# Start the pgAdmin server
+CMD ["/usr/local/bin/python", "/usr/local/bin/pgadmin4.py"]
