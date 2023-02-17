@@ -21,7 +21,7 @@ spec:
            - name: PGADMIN_DEFAULT_EMAIL
              value: "bomtawep@gmail.com"
            - name: PGADMIN_DEFAULT_PASSWORD
-             value: "1234"
+             value: "B@13o01m22"
            - name: PGADMIN_PORT
              value: "80"
           ports:
