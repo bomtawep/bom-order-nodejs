@@ -24,6 +24,8 @@ spec:
           value: B@13o01m22
         - name: PGDATA
           value: /postgres/data
+        - name: PGHOST
+          value: localhost
         image: ghcr.io/bomtawep/postgres:latest
         imagePullPolicy: Always
         name: postgres
