@@ -7,5 +7,5 @@ const connPool = new Pool({
     password: "B@13o01m22",
     port: parseInt("5432" || "5432")
   });
-  
+
 export default connPool
