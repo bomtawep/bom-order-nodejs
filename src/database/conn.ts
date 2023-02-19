@@ -1,7 +1,7 @@
 import { Pool } from "pg";
 
 const connPool = new Pool({
-    host: "localhost",
+    host: "10.130.8.238",
     user: "postgres",
     database: "bomtawepdb",
     password: "B@13o01m22",
