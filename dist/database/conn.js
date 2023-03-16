@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const pg_1 = require("pg");
 const connPool = new pg_1.Pool({
-    host: "10.130.9.179",
+    host: "10.128.5.24",
     user: "postgres",
     database: "bomtawepdb",
     password: "B@13o01m22",
