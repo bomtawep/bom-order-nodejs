@@ -3,7 +3,7 @@ name: OpenShift
 env:
   OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
   OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
-  OPENSHIFT_NAMESPACE: "bomtawep-dev"
+  OPENSHIFT_NAMESPACE: "dskbom001-dev"
   APP_NAME: "bom-order-nodejs"
   APP_PORT: "8080"
   POSTGRES_NAME: "postgres"
